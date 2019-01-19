@@ -1,14 +1,14 @@
 import pygame
 
 pygame.init()
-gamedisplay = pygame.display.set_mode((480, 360))
+screen = pygame.display.set_mode((480, 360))
 pygame.display.set_caption('Super Mario Odyssey Bros. 3')
 pygame.display.set_icon(pygame.image.load(r'./images/icon.png'))
 
 running = True
 
 while running:
-
+    screen.fill((182, 229, 235))
     for event in pygame.event.get():
         print(event)
         if event.type == pygame.QUIT:
@@ -16,7 +16,7 @@ while running:
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 running = False
-w
+
     pygame.display.update()
 
 pygame.quit()
