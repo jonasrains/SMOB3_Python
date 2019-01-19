@@ -4,6 +4,7 @@ pygame.init()
 screen = pygame.display.set_mode((480, 360))
 pygame.display.set_caption('Super Mario Odyssey Bros. 3')
 pygame.display.set_icon(pygame.image.load(r'./images/icon.png'))
+clock = pygame.time.Clock()
 
 running = True
 
@@ -18,5 +19,5 @@ while running:
                 running = False
 
     pygame.display.update()
-
+    clock.tick(60)
 pygame.quit()
