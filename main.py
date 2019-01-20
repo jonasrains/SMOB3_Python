@@ -1,5 +1,4 @@
 import pygame
-import math
 
 import mario
 
@@ -11,6 +10,8 @@ clock = pygame.time.Clock()
 pygame.font.init()
 
 running = True
+camx = 0
+camy = 0
 screen = 'title'
 world = 1
 level = 1
@@ -41,6 +42,7 @@ while running:
             if event.key == pygame.K_LEFT:
                 left_pressed = False
 
+    display.blit(pygame.image.load(r'./images/game elements/ground/world 1/level 1/1.png'), (0,0))
     if mario.direction == 90:
         display.blit(mario.image, (mario.xpos, mario.ypos))
     else:

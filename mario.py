@@ -1,7 +1,16 @@
 import pygame
 import math
 
+import collision
+import json
+
+json_data = open('hitboxes.json').read()
+
+data = json.loads(json_data)
+print(data)
+
 direction = 90
+ground_hitbox = []
 xpos = 0
 ypos = 0
 frame = 1
@@ -13,8 +22,10 @@ image = pygame.image.load(r'./images/game elements/mario/' + str(frame) + '.png'
 
 
 def enter_level(world, level):
-    global running, xpos, ypos
+    global running, xpos, ypos, ground_hitbox
     running = True
+    ground_hitbox = data['ground'][str(world) + '-' + str(level)]
+    print(ground_hitbox)
     if world == 1 and level == 1:
         xpos = 0
         ypos = 0
