@@ -26,12 +26,13 @@ area_imgs = []
 
 border = pygame.image.load(r'./images/game elements/bottom border.png')
 
+
 def load_background():
     global area_imgs
     area_imgs = []
 
     for area in range(areas):
-        area_imgs += [pygame.image.load(r'./images/game elements/ground/world ' + str(world) + '/level ' + str(level) + '/' + str(area + 1) + '.png')]
+        area_imgs += [pygame.image.load(r'./images/game elements/ground/world ' + str(world) + '/level ' + str(level) + '/' + str(area + 1) + '.png').convert_alpha()]
 
 
 def center_camera():
@@ -66,6 +67,8 @@ while running:
                 right_pressed = True
             if event.key == pygame.K_LEFT:
                 left_pressed = True
+            if event.key == pygame.K_SPACE:
+                mario.ypos = 0
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
