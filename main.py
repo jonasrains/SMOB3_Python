@@ -22,6 +22,7 @@ world = 1
 level = 1
 right_pressed = False
 left_pressed = False
+up_pressed = False
 area_imgs = []
 
 border = pygame.image.load(r'./images/game elements/bottom border.png')
@@ -67,19 +68,23 @@ while running:
                 right_pressed = True
             if event.key == pygame.K_LEFT:
                 left_pressed = True
-            if event.key == pygame.K_SPACE:
-                mario.ypos = 0
+            if event.key == pygame.K_UP:
+                up_pressed = True
+            #if event.key == pygame.K_SPACE:
+            #    mario.ypos = 0
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
                 right_pressed = False
             if event.key == pygame.K_LEFT:
                 left_pressed = False
+            if event.key == pygame.K_UP:
+                up_pressed = False
         if event.type == pygame.MOUSEMOTION:
             mouse_position = pygame.mouse.get_pos()
             print(str(-(-mouse_position[0] - camx + 256)) + ', ' + str(-(-mouse_position[1] - camy + 186)))
 
-    mario.update(left_pressed, right_pressed, level, world)
+    mario.update(left_pressed, right_pressed, up_pressed, level, world)
     center_camera()
 
     for area in range(areas):
