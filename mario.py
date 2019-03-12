@@ -4,7 +4,7 @@ import math
 import collision
 import json
 
-json_data = open('hit_boxes.json').read()
+json_data = open('hitboxes.json').read()
 
 data = json.loads(json_data)
 print(data)
