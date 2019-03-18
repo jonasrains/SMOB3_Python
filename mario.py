@@ -5,12 +5,11 @@ import collision
 import json
 
 json_data = open('hitboxes.json').read()
-
-data = json.loads(json_data)
-print(data)
+hitboxes = json.loads(json_data)
+print(hitboxes)
 
 direction = 90
-ground_hit_box = []
+ground_hitbox = []
 x_pos = 0
 y_pos = 0
 frame = 1
@@ -34,30 +33,30 @@ def load_images():
 
 
 def enter_level(world, level):
-    global running, x_pos, y_pos, ground_hit_box
+    global running, x_pos, y_pos, ground_hitbox
     load_images()
     running = True
-    ground_hit_box = data['ground'][str(world) + '-' + str(level)]
-    print(ground_hit_box)
+    ground_hitbox = hitboxes['ground'][str(world) + '-' + str(level)]
+    print(ground_hitbox)
     if world == 1 and level == 1:
-        x_pos = 0
+        x_pos = 16
         y_pos = 0  # 280
 
 
 def touch_ground(world, level):
-    return collision.collision([[x_pos, x_pos + 28], [y_pos, y_pos + 54]], data['ground'][str(world) + '-' + str(level)])
+    return collision.collision([[x_pos - 16, x_pos + 16], [y_pos - 32, y_pos + 22]], hitboxes['ground'][str(world) + '-' + str(level)])
 
 
 def touch_semisolid(world, level):
-    for i in data['semisolid'][str(world) + '-' + str(level)]:
-        collide = collision.collision([[x_pos, x_pos + 28], [y_pos + 52, y_pos + 54]], i)
+    for i in hitboxes['semisolid'][str(world) + '-' + str(level)]:
+        collide = collision.collision([[x_pos - 16, x_pos + 16], [y_pos + 20, y_pos + 22]], i)
         if collide[0]:
             return collide
     return [False, []]
 
 
 def touch_ceiling(world, level):
-    return collision.collision([[x_pos, x_pos + 28], [y_pos, y_pos + 2]], data['ground'][str(world) + '-' + str(level)])
+    return collision.collision([[x_pos - 16, x_pos + 16], [y_pos - 32, y_pos - 30]], hitboxes['ground'][str(world) + '-' + str(level)])
 
 
 def jump(up_pressed, world, level):
@@ -87,7 +86,6 @@ def jump(up_pressed, world, level):
             jumping = False
     else:
         jumping = False
-
 
 
 def update(left_pressed, right_pressed, up_pressed, level, world):
