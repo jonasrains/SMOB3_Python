@@ -23,6 +23,7 @@ level = 1
 right_pressed = False
 left_pressed = False
 up_pressed = False
+down_pressed = False
 area_imgs = []
 
 border = pygame.image.load(r'./images/game elements/bottom border.png')
@@ -38,18 +39,20 @@ def load_background():
 
 def center_camera():
     global camx, camy, camx_min, camx_max, camy_min, camy_min
-    if mario.xpos < camx_min:
+    marx = (round(mario.xpos / 2) - 8) * 2
+    mary = (round(mario.ypos / 2) - 16) * 2
+    if marx < camx_min:
         camx = camx_min
-    elif mario.xpos > camx_max:
+    elif marx > camx_max:
         camx = camx_max
     else:
-        camx = mario.xpos
-    if mario.ypos > camy_min:
+        camx = marx
+    if mary > camy_min:
         camy = camy_min
-    elif mario.ypos < camy_max:
+    elif mary < camy_max:
         camy = camy_max
     else:
-        camy = mario.ypos
+        camy = mary
 
 
 mario.enter_level(world, level)
@@ -70,8 +73,8 @@ while running:
                 left_pressed = True
             if event.key == pygame.K_UP:
                 up_pressed = True
-            #if event.key == pygame.K_SPACE:
-            #    mario.ypos = 0
+            if event.key == pygame.K_DOWN:
+                down_pressed = True
 
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_RIGHT:
@@ -80,21 +83,28 @@ while running:
                 left_pressed = False
             if event.key == pygame.K_UP:
                 up_pressed = False
+            if event.key == pygame.K_DOWN:
+                down_pressed = False
+
         if event.type == pygame.MOUSEMOTION:
             mouse_position = pygame.mouse.get_pos()
             print(str(-(-mouse_position[0] - camx + 256)) + ', ' + str(-(-mouse_position[1] - camy + 186)))
 
-    mario.update(left_pressed, right_pressed, up_pressed, level, world)
+    mario.update(left_pressed, right_pressed, up_pressed, down_pressed, level, world)
     center_camera()
 
     for area in range(areas):
         image = area_imgs[area]
         display.blit(image, ((area * 512)-camx + 256, -camy + 186))
+
+    marx = (round(mario.xpos / 2) - 8) * 2
+    mary = (round(mario.ypos / 2) - 16) * 2
     if mario.direction == 90:
-        display.blit(mario.image, (mario.xpos - camx + 256, mario.ypos - camy + 186))
+        display.blit(mario.image, (marx - camx + 256, mary - camy + 186 + mario.yoffset))
     else:
-        display.blit(pygame.transform.flip(mario.image, True, False), (mario.xpos - camx + 256, mario.ypos - camy + 186))
+        display.blit(pygame.transform.flip(mario.image, True, False), (marx - camx + 256, mary - camy + 186 + mario.yoffset))
     display.blit(border, (0, 0))
+    display.blit(border, (0, -1))
     pygame.display.update()
     clock.tick(60)
 pygame.quit()
