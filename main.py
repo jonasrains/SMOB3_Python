@@ -90,7 +90,7 @@ while running:
             mouse_position = pygame.mouse.get_pos()
             print(str(-(-mouse_position[0] - camx + 256)) + ', ' + str(-(-mouse_position[1] - camy + 186)))
 
-    mario.update(left_pressed, right_pressed, up_pressed, down_pressed, level, world)
+    mario.update(left_pressed, right_pressed, up_pressed, down_pressed)
     center_camera()
 
     for area in range(areas):
