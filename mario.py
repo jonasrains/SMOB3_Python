@@ -71,7 +71,8 @@ def crouch(down_pressed):
     if down_pressed and on_ground():
         crouching = True
     elif not down_pressed:
-        crouching = False
+        if on_ground():
+            crouching = False
 
 
 def on_ground():
@@ -180,7 +181,7 @@ def update(left_pressed, right_pressed, up_pressed, down_pressed):
                 ypos += 1
 
     if crouching:
-        yoffset = 18
+        yoffset = 20
         frame = 5
     else:
         yoffset = 0
